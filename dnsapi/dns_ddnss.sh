@@ -42,7 +42,7 @@ dns_ddnss_add() {
     return 1
   fi
 
-  # Now add the TXT record to DuckDNS
+  # Now add the TXT record to DDNSS DNS
   _info "Trying to add TXT record"
   if _ddnss_rest GET "host=key=$DDNSS_Token&host=ddnss_domain&txtm=1&txt=$txtvalue"; then
     if [ "$response" = "Updated 1 hostname" ]; then
@@ -77,9 +77,9 @@ dns_ddnss_rm() {
     return 1
   fi
 
-  # Now remove the TXT record from DuckDNS
+  # Now remove the TXT record from DDNS DNS
   _info "Trying to remove TXT record"
-  if _duckdns_rest GET "host=key=$DDNSS_Token&host=ddnss_domain&txtm=1&txt="""; then
+  if _ddnss_rest GET "host=key=$DDNSS_Token&host=ddnss_domain&txtm=1&txt="""; then
     if [ "$response" = "updated 1 hostname" ]; then
       _info "TXT record has been successfully removed from your DDNSS domain."
       return 0
