@@ -38,7 +38,7 @@ dns_ddnss_add() {
   # So I assume your credentials (which are your domain and token) are correct
   # If something goes wrong, we will get a KO response from DDNSS
 
-  if ! _duckdns_get_domain; then
+  if ! _ddnss_get_domain; then
     return 1
   fi
 
