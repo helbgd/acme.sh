@@ -45,6 +45,7 @@ dns_ddnss_add() {
   # Now add the TXT record to DDNSS DNS
   _info "Trying to add TXT record"
   if _ddnss_rest GET "key=$DDNSS_Token&host=$_ddnss_domain&txtm=1&txt=$txtvalue"; then
+  response="$(echo "$response" | sed -e :a -e 's/<[^>]*>//g;/</N;//ba' |sed -e '$!d')"
     if [ "$response" = "Updated 1 hostname" ]; then
       _info "TXT record has been successfully added to your DDNSS domain."
       _info "Note that all subdomains under this domain uses the same TXT record."
@@ -80,6 +81,7 @@ dns_ddnss_rm() {
   # Now remove the TXT record from DDNS DNS
   _info "Trying to remove TXT record"
   if _ddnss_rest GET "key=$DDNSS_Token&host=$_ddnss_domain&txtm=1&txt="""; then
+    response="$(echo "$response" | sed -e :a -e 's/<[^>]*>//g;/</N;//ba' |sed -e '$!d')"
     if [ "$response" = "updated 1 hostname" ]; then
       _info "TXT record has been successfully removed from your DDNSS domain."
       return 0
