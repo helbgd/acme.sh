@@ -3,6 +3,9 @@
 #Created by RaidenII, to use DuckDNS's API to add/remove text records
 #06/27/201
 #modified by helbgd @ 03/13/2018 to support ddnss.de
+#Please note: the Wildcard Feature must be turned on for the Host record
+#and the checkbox for TXT needs to be enabled
+
 
 # Pass credentials before "acme.sh --issue --dns dns_ddnss ..."
 # --
