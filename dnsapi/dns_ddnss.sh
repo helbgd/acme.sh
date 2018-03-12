@@ -9,7 +9,7 @@
 # export DDNSS_Token="aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
 # --
 #
-# Due to the fact that DDNSS uses StartSSL as cert provider, --insecure may need to be used with acme.sh
+
 
 DDNSS_DNS_API="https://ddnss.de/upd.php"
 
@@ -92,13 +92,13 @@ dns_ddnss_rm() {
 
 ####################  Private functions below ##################################
 
-#fulldomain=_acme-challenge.domain.duckdns.org
+#fulldomain=_acme-challenge.domain.ddnss.de
 #returns
-# _duckdns_domain=domain
-_duckdns_get_domain() {
+# _ddnss_domain=domain
+_ddnss_get_domain() {
 
   # We'll extract the domain/username from full domain
-  _duckdns_domain="$(printf "%s" "$fulldomain" | _lower_case | _egrep_o '[.][^.][^.]*[.]ddnss.de' | cut -d . -f 2)"
+  _ddnss_domain="$(printf "%s" "$fulldomain" | _lower_case | _egrep_o '[.][^.][^.]*[.]ddnss.de' | cut -d . -f 2)"
 
   if [ -z "$_ddnss_domain" ]; then
     _err "Error extracting the domain."
