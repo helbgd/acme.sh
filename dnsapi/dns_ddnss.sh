@@ -9,7 +9,7 @@
 # export DDNSS_Token="aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
 # --
 #
-# Due to the fact that DuckDNS uses StartSSL as cert provider, --insecure may need to be used with acme.sh
+# Due to the fact that DDNSS uses StartSSL as cert provider, --insecure may need to be used with acme.sh
 
 DDNSS_DNS_API="https://ddnss.de/upd.php"
 
