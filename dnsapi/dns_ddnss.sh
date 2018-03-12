@@ -101,7 +101,7 @@ dns_ddnss_rm() {
 _ddnss_get_domain() {
 
   # We'll extract the domain/username from full domain
-  _ddnss_domain="$(printf "%s" "$fulldomain" | _lower_case | _egrep_o '[.][^.][^.]*[.]ddnss.de' | cut -d . -f 2)"
+  _ddnss_domain="$(printf "%s" "$fulldomain" | _lower_case | _egrep_o '[.][^.][^.]*[.]ddnss.de' | cut -d . -f 2-)"
 
   if [ -z "$_ddnss_domain" ]; then
     _err "Error extracting the domain."
