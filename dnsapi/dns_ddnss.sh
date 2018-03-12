@@ -23,7 +23,7 @@ dns_ddnss_add() {
   fulldomain=$1
   txtvalue=$2
 
-  DDNSS_Token="${DuckDNS_Token:-$(_readaccountconf_mutable DDNSS_Token)}"
+  DDNSS_Token="${DDNSS_Token:-$(_readaccountconf_mutable DDNSS_Token)}"
   if [ -z "$DDNSS_Token" ]; then
     _err "You must export variable: DDNSS_Token"
     _err "The token for your DDNSS account is necessary."
