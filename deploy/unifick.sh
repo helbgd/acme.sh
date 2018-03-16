@@ -25,15 +25,15 @@ unifick_deploy() {
     return 1
   fi
   
-  _certfolder=/etc/ssl/private
+  _certfolder=/etc/ssl/private/
   _debug _certfolder "$_certfolder"
-  _certtar=$_certfolder/cert.tar
+  _certtar="$_certfolder"cert.tar
   _debug _certtar "$_certtar"
-  _cloudkeycrt=$_certfolder/cloudkey.crt
+  _cloudkeycrt="$_certfolder"cloudkey.crt
   _debug _cloudkeycrt "$_cloudkeycrt"
-  _cloudkeykey=$_certfolder/cloudkey.key
+  _cloudkeykey="$_certfolder"cloudkey.key
   _debug _cloudkeykey "$_cloudkeykey"
-  _unifi_keystore=$_certfolder/unifi.keystore.jks
+  _unifi_keystore="$_certfolder"unifi.keystore.jks
   _debug _unfi_keystore "$_unifi_keystore"
   
   
@@ -79,7 +79,6 @@ unifick_deploy() {
   
   _info "creating cert.tar to be reboot resistant on CloudKey"
   tar -cf "$_certtar" -C "$_certfolder" "cloudkey.key cloudkey.crt unifi.keystore.jks"
-  _debug "tar -cf "$_certtar" -C "$_certfolder" "cloudkey.key cloudkey.crt unifi.keystore.jks""
   
   _info "update permissions"
   chown root:ssl-cert "$_certtar" "$_cloudkeyey" "$_cloudkeycrt" "$_unifi_keystore"
