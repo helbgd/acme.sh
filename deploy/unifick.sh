@@ -84,7 +84,7 @@ unifick_deploy() {
   chown root:ssl-cert "$_certtar $_cloudkeyey $_cloudkeycrt $_unifi_keystore"
   chmod 640 "$_certtar $_cloudkeyey $_cloudkeycrt $_unifi_keystore"
    
-  _reload="service unifi restart && service nginx restart"
+  #_reload="service unifi restart && service nginx restart"
   _info "Run reload: $_reload"
   if eval "$_reload"; then
     _info "Reload success!"
