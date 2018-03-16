@@ -37,7 +37,7 @@ unifick_deploy() {
   _debug _unfi_keystore "$_unifi_keystore"
   
   
-  if [ -x $_certtar]; then
+  if [ -x $_certtar ]; then
     _info "orig $_certtar exists" 
   elif [ -x $_cloudkeycrt ]; then
     _info "orig $_cloudkeycrt exists"
