@@ -1,12 +1,8 @@
 #!/usr/bin/env sh
 
-#Here is a script to deploy cert to unifi server.
+#Here is a script to deploy cert to unifi cloudkey.
 
 #returns 0 means success, otherwise error.
-
-#DEPLOY_UNIFI_KEYSTORE="/usr/lib/unifi/data/keystore"
-#DEPLOY_UNIFI_KEYPASS="aircontrolenterprise"
-#DEPLOY_UNIFI_RELOAD="service unifi restart"
 
 ########  Public functions #####################
 
@@ -28,30 +24,22 @@ unifi_deploy() {
     _err "keytool not found"
     return 1
   fi
-
-  DEFAULT_UNIFI_KEYSTORE="/usr/lib/unifi/data/keystore"
-  _unifi_keystore="${DEPLOY_UNIFI_KEYSTORE:-$DEFAULT_UNIFI_KEYSTORE}"
-  DEFAULT_UNIFI_KEYPASS="aircontrolenterprise"
-  _unifi_keypass="${DEPLOY_UNIFI_KEYPASS:-$DEFAULT_UNIFI_KEYPASS}"
-  DEFAULT_UNIFI_RELOAD="service unifi restart"
-  _reload="${DEPLOY_UNIFI_RELOAD:-$DEFAULT_UNIFI_RELOAD}"
-
-  _debug _unifi_keystore "$_unifi_keystore"
-  if [ ! -f "$_unifi_keystore" ]; then
-    if [ -z "$DEPLOY_UNIFI_KEYSTORE" ]; then
-      _err "unifi keystore is not found, please define DEPLOY_UNIFI_KEYSTORE"
-      return 1
-    else
-      _err "It seems that the specified unifi keystore is not valid, please check."
-      return 1
-    fi
-  fi
-  if [ ! -w "$_unifi_keystore" ]; then
-    _err "The file $_unifi_keystore is not writable, please change the permission."
+  _certfolder=/etc/ssl/private
+  if [ -x $_cerfolder/cert.tar ]; then
+    _certtar=$certfolder/cert.tar
+  elif [ -x $certfolder/cloudkey.crt ]; then
+    _cloudkeycrt=$certfolder/cloudkey.crt
+  elif [ -x $certfolder/cloudkey.key ]; then
+    _cloudkeykey=$certfolder/cloudkey.key
+  elif [ -x $certfolder/unifi.keystore.jks ]; then
+    _unifi_keystore=$certfolder/unifi.keystore.jks
+  else
+    _err "either cloud.cert cloudkey.crt cloudkey.key unifi.keystore.jks not found in /etc/ssl/private folder"
     return 1
   fi
-
+  
   _info "Generate import pkcs12"
+  _unifi_keypass="aircontrolenterprise"
   _import_pkcs12="$(_mktemp)"
   _toPkcs "$_import_pkcs12" "$_ckey" "$_ccert" "$_cca" "$_unifi_keypass" unifi root
   if [ "$?" != "0" ]; then
@@ -71,25 +59,19 @@ unifi_deploy() {
     rm "$_import_pkcs12"
     return 1
   fi
-
+  _info "copying over $_ckey to $_cloudkeykey file"
+  cat "$_ckey" >"$_cloudkey"
+  
+  _info "copying over $_ccert to $_cloudkeycrt file"
+  cat "$_ccert" >"$_cloudkeycrt"
+  
+  _info "creating cert.tar to be reboot resistant on CloudKey"
+  tar -cf "$_certtar $_cloudkey $_cloudkeycrt $_unifi_keystore"
+   
+  _reload="service unifi restart && service nginx restart"
   _info "Run reload: $_reload"
   if eval "$_reload"; then
     _info "Reload success!"
-    if [ "$DEPLOY_UNIFI_KEYSTORE" ]; then
-      _savedomainconf DEPLOY_UNIFI_KEYSTORE "$DEPLOY_UNIFI_KEYSTORE"
-    else
-      _cleardomainconf DEPLOY_UNIFI_KEYSTORE
-    fi
-    if [ "$DEPLOY_UNIFI_KEYPASS" ]; then
-      _savedomainconf DEPLOY_UNIFI_KEYPASS "$DEPLOY_UNIFI_KEYPASS"
-    else
-      _cleardomainconf DEPLOY_UNIFI_KEYPASS
-    fi
-    if [ "$DEPLOY_UNIFI_RELOAD" ]; then
-      _savedomainconf DEPLOY_UNIFI_RELOAD "$DEPLOY_UNIFI_RELOAD"
-    else
-      _cleardomainconf DEPLOY_UNIFI_RELOAD
-    fi
     return 0
   else
     _err "Reload error"
