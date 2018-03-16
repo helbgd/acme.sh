@@ -79,6 +79,7 @@ unifick_deploy() {
   
   _info "creating cert.tar to be reboot resistant on CloudKey"
   tar -cf "$_certtar" -C "$_certfolder" "cloudkey.key cloudkey.crt unifi.keystore.jks"
+  _debug "tar -cf "$_certtar" -C "$_certfolder" "cloudkey.key cloudkey.crt unifi.keystore.jks""
   
   _info "update permissions"
   chown root:ssl-cert "$_certtar" "$_cloudkeyey" "$_cloudkeycrt" "$_unifi_keystore"
