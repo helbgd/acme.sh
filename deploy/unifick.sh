@@ -7,7 +7,7 @@
 ########  Public functions #####################
 
 #domain keyfile certfile cafile fullchain
-unifi_deploy() {
+unifick_deploy() {
   _cdomain="$1"
   _ckey="$2"
   _ccert="$3"
