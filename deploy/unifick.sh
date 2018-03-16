@@ -27,18 +27,24 @@ unifick_deploy() {
   
   _certfolder=/etc/ssl/private
   _debug _certfolder "$_certfolder"
-  if [ -x $_certfolder/cert.tar ]; then
-    _certtar=$_certfolder/cert.tar
-    _debug _certtar "$_certtar"
-  elif [ -x $_certfolder/cloudkey.crt ]; then
-    _cloudkeycrt=$_certfolder/cloudkey.crt
-    _debug _cloudkeycrt "$_cloudkeycrt"
-  elif [ -x $_certfolder/cloudkey.key ]; then
-    _cloudkeykey=$_certfolder/cloudkey.key
-    _debug _cloudkeykey "$_cloudkeykey"
-  elif [ -x $_certfolder/unifi.keystore.jks ]; then
-    _unifi_keystore=$_certfolder/unifi.keystore.jks
-    _debug _unfi_keystore "$_unifikeystore"
+  _certtar=$_certfolder/cert.tar
+  _debug _certtar "$_certtar"
+  _cloudkeycrt=$_certfolder/cloudkey.crt
+  _debug _cloudkeycrt "$_cloudkeycrt"
+  _cloudkeykey=$_cerfolder/cloudkey.key
+  _debug _cloudkeykey "$_cloudkeykey"
+  _unifi_keystore=$_certfolder/unifi.keystore.key
+  _debug _unfi_keystore "$_unifikeystore"
+  
+  
+  if [ -x $_certtar]; then
+    _info "orig $_certtar exists" 
+  elif [ -x $_cloudkeycrt ]; then
+    _info "orig $_cloudkeycrt exists"
+  elif [ -x $_cloudkeykey ]; then
+    _info "orig $_cloudkeykey"
+  elif [ -x $_unifi_keystore ]; then
+    _info "orig $unifi_keystore exists"
   else
     _err "either cloud.cert cloudkey.crt cloudkey.key unifi.keystore.jks not found in /etc/ssl/private folder"
     return 1
