@@ -33,7 +33,7 @@ unifick_deploy() {
   _debug _cloudkeycrt "$_cloudkeycrt"
   _cloudkeykey=$_certfolder/cloudkey.key
   _debug _cloudkeykey "$_cloudkeykey"
-  _unifi_keystore=$_certfolder/unifi.keystore.key
+  _unifi_keystore=$_certfolder/unifi.keystore.jks
   _debug _unfi_keystore "$_unifi_keystore"
   
   
