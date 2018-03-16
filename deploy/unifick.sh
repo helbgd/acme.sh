@@ -24,19 +24,25 @@ unifick_deploy() {
     _err "keytool not found"
     return 1
   fi
+  
   _certfolder=/etc/ssl/private
+  _debug _certfolder "$_certfolder"
   if [ -x $_cerfolder/cert.tar ]; then
     _certtar=$certfolder/cert.tar
+    _debug _certtar "$_certtart"
   elif [ -x $certfolder/cloudkey.crt ]; then
     _cloudkeycrt=$certfolder/cloudkey.crt
+    _debug _cloudkeycrt "$_cloudkeycrt"
   elif [ -x $certfolder/cloudkey.key ]; then
     _cloudkeykey=$certfolder/cloudkey.key
+    _debug _cloudkeykey "$_cloudkeykey"
   elif [ -x $certfolder/unifi.keystore.jks ]; then
     _unifi_keystore=$certfolder/unifi.keystore.jks
+    _debug _unfi_keystore "$_unifikeystore"
   else
     _err "either cloud.cert cloudkey.crt cloudkey.key unifi.keystore.jks not found in /etc/ssl/private folder"
     return 1
-  fi
+   fi
   
   _info "Generate import pkcs12"
   _unifi_keypass="aircontrolenterprise"
