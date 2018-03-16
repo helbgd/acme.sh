@@ -27,7 +27,7 @@ unifick_deploy() {
   
   _certfolder=/etc/ssl/private
   _debug _certfolder "$_certfolder"
-  if [ -x $_cerfolder/cert.tar ]; then
+  if [ -x $_certfolder/cert.tar ]; then
     _certtar=$certfolder/cert.tar
     _debug _certtar "$_certtart"
   elif [ -x $certfolder/cloudkey.crt ]; then
