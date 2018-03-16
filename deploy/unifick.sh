@@ -78,11 +78,11 @@ unifick_deploy() {
   cat "$_cfullchain" >"$_cloudkeycrt"
   
   _info "creating cert.tar to be reboot resistant on CloudKey"
-  tar -cf -C "_certfolder" "cert.tar cloudkey.key cloudkey.crt unifi.keystore.jks"
+  tar -cf -C "$_certfolder" "cert.tar cloudkey.key cloudkey.crt unifi.keystore.jks"
   
   _info "update permissions"
-  chown root:ssl-cert "$_certtar $_cloudkeyey $_cloudkeycrt $_unifi_keystore"
-  chmod 640 "$_certtar $_cloudkeyey $_cloudkeycrt $_unifi_keystore"
+  chown root:ssl-cert "$_certtar" "$_cloudkeyey" "$_cloudkeycrt" "$_unifi_keystore"
+  chmod 640 "$_certtar" "$_cloudkeyey" "$_cloudkeycrt" "$_unifi_keystore"
    
   #_reload="service unifi restart && service nginx restart"
   _info "Run reload: $_reload"
