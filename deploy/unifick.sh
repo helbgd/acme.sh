@@ -38,15 +38,15 @@ unifick_deploy() {
   
   
   if [ -w "$_certtar" ]; then
-    _info "orig $_certtar writeable" 
+    _debug "File $_certtar writeable" 
   elif [ -w "$_cloudkeycrt" ]; then
-    _info "orig $_cloudkeycrt writeable"
+    _debug "File $_cloudkeycrt writeable"
   elif [ -w "$_cloudkeykey" ]; then
-    _info "orig $_cloudkeykey"
+    _debug "File $_cloudkeykey writeable"
   elif [ -w "$_unifi_keystore" ]; then
-    _info "orig $unifi_keystore exists"
+    _debug "File $_unifi_keystore writeable"
   else
-    _err "either cloud.cert cloudkey.crt cloudkey.key unifi.keystore.jks not found in /etc/ssl/private folder"
+    _err "either cloud.cert cloudkey.crt cloudkey.key unifi.keystore.jks not found or writeable in /etc/ssl/private folder"
     return 1
    fi
   
