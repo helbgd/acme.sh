@@ -60,10 +60,10 @@ unifi_deploy() {
     return 1
   fi
   _info "copying over $_ckey to $_cloudkeykey file"
-  cat "$_ckey" >"$_cloudkey"
+  cat "$_ckey" >"$_cloudkeykey"
   
-  _info "copying over $_ccert to $_cloudkeycrt file"
-  cat "$_ccert" >"$_cloudkeycrt"
+  _info "copying over $_fullchain to $_cloudkeycrt file"
+  cat "$_cfullchain" >"$_cloudkeycrt"
   
   _info "creating cert.tar to be reboot resistant on CloudKey"
   tar -cf "$_certtar $_cloudkey $_cloudkeycrt $_unifi_keystore"
