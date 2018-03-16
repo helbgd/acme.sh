@@ -31,10 +31,10 @@ unifick_deploy() {
   _debug _certtar "$_certtar"
   _cloudkeycrt=$_certfolder/cloudkey.crt
   _debug _cloudkeycrt "$_cloudkeycrt"
-  _cloudkeykey=$_cerfolder/cloudkey.key
+  _cloudkeykey=$_certfolder/cloudkey.key
   _debug _cloudkeykey "$_cloudkeykey"
   _unifi_keystore=$_certfolder/unifi.keystore.key
-  _debug _unfi_keystore "$_unifikeystore"
+  _debug _unfi_keystore "$_unifi_keystore"
   
   
   if [ -x $_certtar]; then
