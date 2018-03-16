@@ -67,6 +67,10 @@ unifi_deploy() {
   
   _info "creating cert.tar to be reboot resistant on CloudKey"
   tar -cf "$_certtar $_cloudkey $_cloudkeycrt $_unifi_keystore"
+  
+  _info "update permissions"
+  chown root:ssl-cert "$_certtar $_cloudkeyey $_cloudkeycrt $_unifi_keystore"
+  chmod 640 "$_certtar $_cloudkeyey $_cloudkeycrt $_unifi_keystore"
    
   _reload="service unifi restart && service nginx restart"
   _info "Run reload: $_reload"
